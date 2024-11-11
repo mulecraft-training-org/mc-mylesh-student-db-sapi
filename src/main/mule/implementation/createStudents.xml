@@ -43,7 +43,7 @@ payload.student_id map (
     {
         "studentId": $,
         "status": "request succeeded",
-        "response":"student details created"
+        "response":"student details created successfully"
     }
 )]]></ee:set-payload>
 			</ee:message>
