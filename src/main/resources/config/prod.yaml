@@ -1,0 +1,9 @@
+#DataBase
+database:
+  user: "![HaEjF5h9k8JkvUFK5zvRFaHyfMeOjJ2KUfJzSAiT1C54wF8PmfMmLXJPWpQcfBFr]"
+  password: "![Wgp2fwKrNs6jnXLaS8SdmA==]"
+  
+  
+#HTTP
+http:
+  port: "![XE4R5YOW7Cc=]"

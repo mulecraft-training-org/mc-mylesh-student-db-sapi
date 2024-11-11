@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+
+	<flow name="get:\students:student-management-api-config">
+		<db:select doc:name="Select"
+			doc:id="6df05bb2-430f-4e71-b7d1-098d8f1aeec6"
+			config-ref="Database_Config">
+			<db:sql><![CDATA[SELECT * FROM student_details WHERE school_name= :schoolName::schoolenum
+LIMIT :limit OFFSET :offset]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	"schoolName": attributes.queryParams.school_name ,
+	"limit": (attributes.queryParams.pageSize as Number default 10),
+	"offset": (attributes.queryParams.page as Number default 0 ) 
+	
+}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map{
+  studentId: $.student_id,
+  firstName: $.first_name,
+  lastName: $.last_name,
+  emailId: $.email_id,
+  schoolName: $.school_name,
+  trainerId: $.trainer_id,
+  enrollmentDate: $.enrollment_date,
+  status: $.status,
+  courseId: $.course_id
+} ]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+
+</mule>
