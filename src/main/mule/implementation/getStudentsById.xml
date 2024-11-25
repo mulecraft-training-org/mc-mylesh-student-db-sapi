@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
 	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 	xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 
 
 	<flow
 		name="get:\students\(studentId):student-management-api-config">
+		<set-variable value="#[attributes.headers.TrackingId]" doc:name="Set Variable" doc:id="4d649653-182b-410b-88a4-c014eda69d41" variableName="trackingId"/>
+		<logger level="INFO" doc:name="Initial Logger" doc:id="59503454-ea13-4084-9303-b595db59411d" message="FLow Started #[flow.name]  Correlation:  #[correlationId] TrakingId: #[attributes.headers.TrackingId]"/>
+		<logger level="INFO" doc:name="Query Start" doc:id="d6871757-1ffe-4eb1-9aee-d0b9bf21c2a7" message="Query Start TrackingId: #[vars.trackingId]"/>
 		<db:select doc:name="Select"
 			doc:id="09d70e3d-6491-4e19-869c-feb2f9ebcbe5"
 			config-ref="Database_Config">
@@ -20,6 +24,8 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	"studentId" : attributes.uriParams.studentId
 }]]]></db:input-parameters>
 		</db:select>
+		<logger level="INFO" doc:name="Query End" doc:id="fe83dcaf-09fb-41e1-98f6-9951c910e4ad" message="Query End TrackingId: #[vars.trackingId]"/>
+		<logger level="INFO" doc:name="Transform Start" doc:id="0730e825-f9df-49eb-bc86-c2a90e4b470f" message="Transform Start TrackingId: #[vars.trackingId]"/>
 		<ee:transform doc:name="Transform Message">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -38,6 +44,10 @@ payload map{
 } ]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-	</flow>
+		<logger level="INFO" doc:name="Transform End" doc:id="433e7dbd-c64c-4843-b609-c26b57c256ba" message="Transform End TrackingId: #[vars.trackingId]"/>
+		<logger level="INFO" doc:name="Flow end " doc:id="215935d4-27e0-4d73-8805-4c25db5dd260" message="Flow end - Flow name: #[flow.name]"/>
+	
+</flow>
+
 
 </mule>
