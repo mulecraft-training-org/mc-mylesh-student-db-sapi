@@ -14,7 +14,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<flow
 		name="get:\students\(studentId):student-management-api-config">
 		<set-variable value="#[attributes.headers.TrackingId]" doc:name="Set Variable" doc:id="4d649653-182b-410b-88a4-c014eda69d41" variableName="trackingId"/>
-		<logger level="INFO" doc:name="Initial Logger" doc:id="59503454-ea13-4084-9303-b595db59411d" message="FLow Started #[flow.name]  Correlation:  #[correlationId] TrakingId: #[attributes.headers.TrackingId]"/>
+		<logger level="INFO" doc:name="Initial Logger" doc:id="59503454-ea13-4084-9303-b595db59411d" message="FLow Start  #[flow.name]  Correlation:  #[correlationId] TrakingId: #[attributes.headers.TrackingId]"/>
 		<logger level="INFO" doc:name="Query Start" doc:id="d6871757-1ffe-4eb1-9aee-d0b9bf21c2a7" message="Query Start TrackingId: #[vars.trackingId]"/>
 		<db:select doc:name="Select"
 			doc:id="09d70e3d-6491-4e19-869c-feb2f9ebcbe5"
