@@ -48,6 +48,7 @@ payload.student_id map (
 )]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-	</flow>
+	
+</flow>
 
 </mule>
