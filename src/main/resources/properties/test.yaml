@@ -1,9 +1,6 @@
-#DataBase
 database:
   user: "![pgDPdc2twmO/KuECBLEmQZy9oQrGwwyPX3hi2Dof1Mw=]"
   password: "![VgbPzqms+5dHK3b8HEXENg==]"
   
-  
-#HTTP
 http:
-  port: "![aWrHI2/2tag=]"
+  port: "8081"
