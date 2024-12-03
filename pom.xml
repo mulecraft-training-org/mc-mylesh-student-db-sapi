@@ -44,9 +44,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>5d90ab45-fe6f-4614-9133-0979499b21a2</groupId>
+			<groupId>25ee6fa1-71bc-4a1c-aa72-4e31706a075e</groupId>
 			<artifactId>student-management-api</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.0</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
@@ -85,6 +85,7 @@
 			<version>1.2.7</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+		
 	</dependencies>
 
 	<repositories>
