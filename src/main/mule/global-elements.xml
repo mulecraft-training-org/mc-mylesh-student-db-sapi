@@ -36,7 +36,6 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 		<secure-properties:encrypt algorithm="Blowfish" />
 	</secure-properties:config>
 	<configuration doc:name="Configuration" doc:id="c999fd29-6121-4c5b-a894-996e926e3a39" defaultErrorHandler-ref="error-handler" />
-	<api-gateway:autodiscovery apiId="20094054" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="836b4ffc-9257-43a7-9840-e5d64b84faaa" flowRef="student-management-api-main" />
 
 
 </mule>

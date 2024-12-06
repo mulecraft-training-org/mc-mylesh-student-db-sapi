@@ -13,9 +13,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 
 	<flow
 		name="get:\students\(studentId):student-management-api-config">
-		<set-variable value="#[attributes.headers.TrackingId]" doc:name="Set Variable" doc:id="4d649653-182b-410b-88a4-c014eda69d41" variableName="trackingId"/>
-		<logger level="INFO" doc:name="Initial Logger" doc:id="59503454-ea13-4084-9303-b595db59411d" message="FLow Start  #[flow.name]  Correlation:  #[correlationId] TrakingId: #[attributes.headers.TrackingId]"/>
-		<logger level="INFO" doc:name="Query Start" doc:id="d6871757-1ffe-4eb1-9aee-d0b9bf21c2a7" message="Query Start TrackingId: #[vars.trackingId]"/>
+		<logger level="INFO" doc:name="Flow Start" doc:id="59503454-ea13-4084-9303-b595db59411d" message="Flow Start - Flow Name: #[flow.name] CorrelationId: #[correlationId] TrakingId: #[attributes.headers.TrackingId]"/>
+		<set-variable value="#[attributes.headers.TrackingId]" doc:name="Set Variable" doc:id="5e759e19-83c3-41e8-ae93-869dd0b9ca70" variableName="trackingId"/>
+		<logger level="INFO" doc:name="Querying Data" doc:id="d6871757-1ffe-4eb1-9aee-d0b9bf21c2a7" message="Querying Data From DataBase - CorrelationId: #[correlationId] TrackingId: #[vars.trackingId] "/>
 		<db:select doc:name="Select"
 			doc:id="09d70e3d-6491-4e19-869c-feb2f9ebcbe5"
 			config-ref="Database_Config">
@@ -24,8 +24,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"studentId" : attributes.uriParams.studentId
 }]]]></db:input-parameters>
 		</db:select>
-		<logger level="INFO" doc:name="Query End" doc:id="fe83dcaf-09fb-41e1-98f6-9951c910e4ad" message="Query End TrackingId: #[vars.trackingId]"/>
-		<logger level="INFO" doc:name="Transform Start" doc:id="0730e825-f9df-49eb-bc86-c2a90e4b470f" message="Transform Start TrackingId: #[vars.trackingId]"/>
+		<logger level="INFO" doc:name="Queried Successfully" doc:id="fe83dcaf-09fb-41e1-98f6-9951c910e4ad" message="Queried Successfully Data from DataBase - CorrelationId: #[correlationId] TrackingId: #[vars.trackingId]"/>
+		<logger level="DEBUG" doc:name="Transform Start" doc:id="0730e825-f9df-49eb-bc86-c2a90e4b470f" message="Transform message Start - TrackingId: #[vars.trackingId] Payload Before transform: #[payload]"/>
 		<ee:transform doc:name="Transform Message">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -44,8 +44,8 @@ payload map{
 } ]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Transform End" doc:id="433e7dbd-c64c-4843-b609-c26b57c256ba" message="Transform End TrackingId: #[vars.trackingId]"/>
-		<logger level="INFO" doc:name="Flow end " doc:id="215935d4-27e0-4d73-8805-4c25db5dd260" message="Flow end - Flow name: #[flow.name]"/>
+		<logger level="DEBUG" doc:name="Transform End" doc:id="433e7dbd-c64c-4843-b609-c26b57c256ba" message="Transform message End - TrackingId: #[vars.trackingId] Payload After transform: #[payload]"/>
+		<logger level="INFO" doc:name="Flow end " doc:id="215935d4-27e0-4d73-8805-4c25db5dd260" message="FLow End - Flow Name: #[flow.name] CorrelationId: #[correlationId] TrakingId: #[vars.trackingId]"/>
 	
 </flow>
 
