@@ -115,22 +115,7 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 		</on-error-propagate>
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="895d6ef5-4656-425f-bb3c-6ea483dbbf24" type="DB:QUERY_EXECUTION">
-			<ee:transform doc:name="Transform Message" doc:id="1c71cd08-a7d9-4b10-aeeb-b41dfe37a283">
-				<ee:message>
-					<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-	"message" : "Check SQL query properly"
-}]]></ee:set-payload>
-				</ee:message>
-				<ee:variables >
-					<ee:set-variable variableName="httpStatus" ><![CDATA[500]]></ee:set-variable>
-				</ee:variables>
-			</ee:transform>
-		</on-error-propagate>
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c7bc15b1-77f9-4bbd-a37f-1cfeaa4a65c8" type="ANY">
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c7bc15b1-77f9-4bbd-a37f-1cfeaa4a65c8" type="ANY,DB:QUERY_EXECUTION">
 			<ee:transform doc:name="Transform Message" doc:id="d74e167c-faf6-4c37-963c-6990d87958f1" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
