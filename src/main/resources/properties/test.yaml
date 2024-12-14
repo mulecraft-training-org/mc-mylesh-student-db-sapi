@@ -1,6 +1,7 @@
 database:
   user: "![pgDPdc2twmO/KuECBLEmQZy9oQrGwwyPX3hi2Dof1Mw=]"
   password: "![VgbPzqms+5dHK3b8HEXENg==]"
+  url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
   
 http:
   port: "8081"

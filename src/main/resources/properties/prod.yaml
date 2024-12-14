@@ -2,7 +2,7 @@
 database:
   user: "![HaEjF5h9k8JkvUFK5zvRFaHyfMeOjJ2KUfJzSAiT1C54wF8PmfMmLXJPWpQcfBFr]"
   password: "![Wgp2fwKrNs6jnXLaS8SdmA==]"
-  
+  url: "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
 
 http:
   port: "8081"
