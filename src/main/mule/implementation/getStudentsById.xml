@@ -26,7 +26,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		</db:select>
 		<logger level="INFO" doc:name="Queried Successfully" doc:id="fe83dcaf-09fb-41e1-98f6-9951c910e4ad" message="Queried Successfully Data from DataBase - CorrelationId: #[correlationId] TrackingId: #[vars.trackingId]"/>
 		<logger level="DEBUG" doc:name="Transform Start" doc:id="0730e825-f9df-49eb-bc86-c2a90e4b470f" message="Transform message Start - TrackingId: #[vars.trackingId] Payload Before transform: #[payload]"/>
-		<ee:transform doc:name="Transform Message">
+		<ee:transform doc:name="Transform Message" doc:id="eebbb3e3-0fb8-4aa6-9280-8e6749636d14">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
