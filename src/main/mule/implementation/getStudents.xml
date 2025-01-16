@@ -10,16 +10,12 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
 	<flow name="get:\students:student-management-api-config">
+		<set-payload value="#[%dw 2.0&#10;output application/json&#10;&#10;var whereCase = if(!isEmpty(payload)) &quot; WHERE &quot;  else &quot;&quot;&#10;&#10;var studentId = if(!isEmpty(payload.student_id)) &quot; student_id='&quot; ++ payload.student_id ++ &quot;'&quot; else &quot;&quot;&#10;var firstName = if(!isEmpty(payload.first_name)) &quot; first_name='&quot; ++ payload.first_name ++ &quot;'&quot; else &quot;&quot;&#10;var lastName = if(!isEmpty(payload.last_name)) &quot; last_name='&quot; ++ payload.last_name ++ &quot;'&quot; else &quot;&quot; &#10;var schoolName = if(!isEmpty(payload.school_name)) &quot; school_name='&quot; ++ payload.school_name ++ &quot;'&quot; else &quot;&quot; &#10;var emailId = if(!isEmpty(payload.email_id)) &quot; email_id='&quot; ++ payload.email_id ++ &quot;'&quot; else &quot;&quot;&#10;var trainerId = if(!isEmpty(payload.trainer_id)) &quot; trainer_id='&quot; ++ payload.trainer_id ++ &quot;'&quot; else &quot;&quot;&#10;var enrollDate = if(!isEmpty(payload.enrollment_date)) &quot; enrollment_date='&quot; ++ payload.enrollment_date ++ &quot;'&quot; else &quot;&quot;&#10;var status = if(!isEmpty(payload.status)) &quot; status='&quot; ++ payload.status ++ &quot;'&quot; else &quot;&quot;&#10;var courseId = if(!isEmpty(payload.course_id)) &quot; course_id='&quot; ++ payload.course_id ++ &quot;'&quot; else &quot;&quot;&#10;&#10;---&#10;&quot;SELECT * FROM student_details&quot; ++ whereCase ++ (trim(studentId ++  firstName  ++ lastName ++ schoolName ++ emailId ++ trainerId ++ enrollDate ++ status ++ courseId) replace  &quot; &quot; with &quot; AND &quot;)]" doc:name="Set Payload" doc:id="80c4f4d6-6436-4bb9-83bf-a5df288df20a" />
+		<logger level="INFO" doc:name="Query" doc:id="b18b863b-0c25-4511-9e3e-cc1142d3d5f6" message="#[payload]" category="get.query"/>
 		<db:select doc:name="Select"
 			doc:id="6df05bb2-430f-4e71-b7d1-098d8f1aeec6"
 			config-ref="Database_Config">
-			<db:sql ><![CDATA[SELECT * FROM student_details WHERE school_name= :schoolName::schoolenum
-LIMIT :limit OFFSET :offset]]></db:sql>
-			<db:input-parameters ><![CDATA[#[{
-	"schoolName": attributes.queryParams.school_name ,
-	"limit": (attributes.queryParams.pageSize as Number default 10),
-	"offset": (attributes.queryParams.page as Number default 0 ) 
-}]]]></db:input-parameters>
+			<db:sql ><![CDATA[#[payload]]]></db:sql>
 
 		</db:select>
 		<ee:transform doc:name="Transform Message">

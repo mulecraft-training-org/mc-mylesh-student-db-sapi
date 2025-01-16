@@ -15,16 +15,16 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			value="#[&quot;SELECT student_id FROM student_details WHERE email_id IN &quot;  &#10;++ ( &quot;(&quot; ++ ( payload.emailId map ((item)-&gt; &quot;'&quot; ++ item ++ &quot;'&quot; ) joinBy &quot;,&quot; ) ++  &quot;)&quot; )]"
 			doc:name="Set Variable" doc:id="0c522017-75f3-47ce-9a50-8c84ee1a9ed0"
 			variableName="emailId" />
-		<logger level="INFO" doc:name="Logger"
+		<logger level="INFO" doc:name="Email Query"
 			doc:id="c80b6f6d-1194-4663-9a27-cc97ab8b0970"
 			message="#[vars.emailId]" />
-		<db:bulk-insert doc:name="Bulk insert"
-			doc:id="5e915b41-228f-4334-bf2f-3a5f3a25fac7"
-			config-ref="Database_Config">
-			<db:sql><![CDATA[INSERT INTO student_details
-( first_name, last_name, school_name, email_id, trainer_id, enrollment_date, status, course_id)
-VALUES ( :firstName, :lastName, :schoolName::schoolenum, :emailId, :trainerId, :enrollmentDate::date, :status::statusenum, :courseId)
-]]></db:sql>
+		<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;payload map({&#10;    "first_name" : $.firstName,&#10;    "last_name" : $.lastName,&#10;    "school_name" : $.schoolName,&#10;    "email_id" : $.emailId,&#10;    "trainer_id" : $.trainerId,&#10;    "enrollment_date" : $.enrollmentDate,&#10;    "status" : $.status,&#10;    "course_id" : $.courseId&#10;})]' doc:name="Transform payload" doc:id="ad22feea-080d-4a11-9dda-4397dcad507a" />
+		<foreach doc:name="For Each" doc:id="07197a92-0b36-44c4-8ca6-67fbe37fb6cf" >
+			<set-payload value="#[%dw 2.0&#10;output application/json&#10;&#10;var keys = ((keysOf(payload)) joinBy  &quot;,&quot;)&#10;var values = (valuesOf(payload) map ((item, index) -&gt; &quot;'&quot; ++ item ++ &quot;'&quot;) joinBy  &quot;,&quot;)&#10;&#10;---&#10;&quot;INSERT INTO student_details (&quot; ++ keys ++  &quot;) VALUES (&quot; ++ values ++  &quot;)&quot;]" doc:name="Set Payload" doc:id="c3e38626-e694-4632-a6ab-1d2e671c6396" />
+			<logger level="INFO" doc:name="Query" doc:id="b575697a-d3cf-4a07-95ac-9c1c8b0af3e6" message="#[payload]" category="query.payload" />
+		</foreach>
+		<db:bulk-insert doc:name="Bulk insert" doc:id="5e915b41-228f-4334-bf2f-3a5f3a25fac7" config-ref="Database_Config">
+			<db:sql><![CDATA[#[payload]]]></db:sql>
 		</db:bulk-insert>
 		<db:select doc:name="Select"
 			doc:id="d1e19990-4ffb-4955-af9b-921e88bb18c8"

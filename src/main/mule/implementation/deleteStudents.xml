@@ -14,9 +14,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<set-variable value="#[payload.studentId]"
 			doc:name="Set Variable" doc:id="679ba2d5-53c5-4ed1-9f45-117b0cadb0d7"
 			variableName="studentId" />
-		<db:bulk-delete doc:name="Bulk delete"
-			doc:id="12f51dde-48f4-4303-8d83-8d17230af352"
-			config-ref="Database_Config">
+		<db:bulk-delete doc:name="Bulk delete" doc:id="12f51dde-48f4-4303-8d83-8d17230af352" config-ref="Database_Config">
 			<db:sql><![CDATA[DELETE FROM student_details WHERE student_id= :studentId]]></db:sql>
 		</db:bulk-delete>
 		<ee:transform doc:name="Transform Message">
