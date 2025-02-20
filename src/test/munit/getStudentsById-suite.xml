@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="getStudentsById-suite.xml" />
+	<munit:test name="get:\students\(studentId):student-management-api-config-test" doc:id="f12e63ff-2906-495e-aac3-c9e07befb200" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="2d9752a6-7661-4cbd-b168-17c677a92b22" >
+				<munit:payload value="#[readUrl('classpath://getstudentsstudentIdstudentmanagementapiconfigtest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getstudentsstudentIdstudentmanagementapiconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getstudentsstudentIdstudentmanagementapiconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\students\(studentId):student-management-api-config" doc:id="3e9276fa-663a-4591-ae66-7ee69787e6f0" name="get:\students\(studentId):student-management-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="59a450d9-2d66-46a1-9a54-902858466ef2" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getstudentsstudentIdstudentmanagementapiconfigtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

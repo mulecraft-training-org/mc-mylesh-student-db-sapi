@@ -12,13 +12,11 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 
 
 	<flow
-		name="get:\students\(studentId):student-management-api-config">
+		name="get:\students\(studentId):student-management-api-config" doc:id="d6d21df5-4ef1-4e75-8130-4da36efb6439">
 		<logger level="INFO" doc:name="Flow Start" doc:id="59503454-ea13-4084-9303-b595db59411d" message="Flow Start - Flow Name: #[flow.name] CorrelationId: #[correlationId] TrakingId: #[attributes.headers.TrackingId]"/>
 		<set-variable value="#[attributes.headers.TrackingId]" doc:name="Set Variable" doc:id="5e759e19-83c3-41e8-ae93-869dd0b9ca70" variableName="trackingId"/>
 		<logger level="INFO" doc:name="Querying Data" doc:id="d6871757-1ffe-4eb1-9aee-d0b9bf21c2a7" message="Querying Data From DataBase - CorrelationId: #[correlationId] TrackingId: #[vars.trackingId] "/>
-		<db:select doc:name="Select"
-			doc:id="09d70e3d-6491-4e19-869c-feb2f9ebcbe5"
-			config-ref="Database_Config">
+		<db:select doc:name="Select" doc:id="09d70e3d-6491-4e19-869c-feb2f9ebcbe5" config-ref="Database_Config">
 			<db:sql><![CDATA[SELECT * FROM student_details WHERE student_id= :studentId]]></db:sql>
 			<db:input-parameters><![CDATA[#[{
 	"studentId" : attributes.uriParams.studentId

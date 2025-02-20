@@ -37,11 +37,11 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<configuration-properties
 		doc:name="Configuration properties"
 		doc:id="224e0a04-229d-4405-acc1-e9ddde28c90c"
-		file="properties/${env}.yaml" />
+		file="properties\dev.yaml" />
 	<secure-properties:config
 		name="Secure_Properties_Config" doc:name="Secure Properties Config"
 		doc:id="04feb191-d17e-431b-aa61-9c5865700d5a"
-		file="properties/${env}.yaml" key="${key}">
+		file="properties\dev.yaml" key="devkeystudent">
 		<secure-properties:encrypt
 			algorithm="Blowfish" />
 	</secure-properties:config>

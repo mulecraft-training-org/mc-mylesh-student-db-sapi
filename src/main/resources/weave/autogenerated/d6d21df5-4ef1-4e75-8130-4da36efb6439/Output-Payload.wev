@@ -1,0 +1,15 @@
+%dw 2.0
+
+type auto_d6d21df5_4ef1_4e75_8130_4da36efb6439_Output_Payload = {
+  studentId: Number, 
+  firstName: String, 
+  lastName?: String, 
+  enrollmentDate?: String, 
+  emailId: String, 
+  schoolName?: "kurinji" | "Littel Angel" | "Vinayaga", 
+  courseId?: Number, 
+  trainerId?: Number, 
+  status?: "completed" | "in-progress" | "enrolled", 
+  _?: Any
+}
+
